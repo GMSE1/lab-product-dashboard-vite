@@ -1,19 +1,69 @@
-import React from 'react';
 import styles from '../styles/ProductCard.module.css';
+import { Card, CardContent, Typography, Button, Chip } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const ProductCard = ({ product }) => {
+function ProductCard({ id, name, price, inStock, onRemove }) {
   return (
-    <div className>
-      {/* TODO: Apply conditional class to <div> above for out-of-stock items */}
-      
-      {/* TODO: Display product name */}
+    <div className={inStock ? '' : 'outOfStockClass'}>
+      <Card 
+        className={styles.productCard}
+        sx={{
+          minWidth: 275,
+          transition: 'transform 0.2s',
+          opacity: inStock ? 1 : 0.6,
+          '&:hover': {
+            transform: 'scale(1.05)',
+          }
+        }}
+      >
+        <CardContent>
+          <Typography variant="h5" component="div" gutterBottom>
+            {name}
+          </Typography>
+          
+          <Typography variant="h6" color="primary" sx={{ mb: 2 }}>
+            {price}
+          </Typography>
+          
+          <Chip 
+            label={inStock ? 'In Stock' : 'Out of Stock'}
+            color={inStock ? 'success' : 'default'}
+            size="small"
+            sx={{ mb: 2 }}
+          />
+          
+          <Button 
+            variant="contained" 
+            color="primary"
+            startIcon={<ShoppingCartIcon />}
+            disabled={!inStock}
+            fullWidth
+            sx={{
+              mt: 1,
+              mb: 1,
+              backgroundColor: inStock ? '#1976d2' : '#ccc',
+              '&:hover': {
+                backgroundColor: inStock ? '#1565c0' : '#ccc',
+              }
+            }}
+          >
+            {inStock ? 'Add to Cart' : 'Unavailable'}
+          </Button>
 
-      {/* TODO: Display product price */}
-
-      {/* TODO: Show if the product is in stock or out of stock */}
-      
+          <Button 
+            variant="outlined" 
+            color="error"
+            startIcon={<DeleteIcon />}
+            fullWidth
+            onClick={() => onRemove(id)}
+          >
+            Remove
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
-};
+}
 
 export default ProductCard;
