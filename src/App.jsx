@@ -18,7 +18,7 @@ const theme = createTheme({
 function App() {
   const [products, setProducts] = useState([
     { id: 1, name: 'Laptop', price: '$999', inStock: true },
-    { id: 2, name: 'Phone', price: '$699', inStock: true },
+    { id: 2, name: 'Phone', price: '$699', inStock: false },
     { id: 3, name: 'Tablet', price: '$499', inStock: true },
     { id: 4, name: 'Desktop', price: '$1299', inStock: false}
   ]);
